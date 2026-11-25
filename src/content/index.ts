@@ -26,6 +26,7 @@ import { httpProxyFlow } from "./flows/http-proxy";
 import { reverseProxyFlow } from "./flows/reverse-proxy";
 import { captivePortalFlow } from "./flows/captive-portal";
 import { socks5Flow } from "./flows/socks5";
+import { wireguardFlow } from "./flows/wireguard";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -55,6 +56,7 @@ export const topics: Flow[] = [
   reverseProxyFlow,
   captivePortalFlow,
   socks5Flow,
+  wireguardFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
