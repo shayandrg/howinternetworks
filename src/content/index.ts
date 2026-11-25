@@ -32,6 +32,7 @@ import { bgpFlow } from "./flows/bgp";
 import { radiusFlow } from "./flows/radius";
 import { pppoeFlow } from "./flows/pppoe";
 import { smbFlow } from "./flows/smb";
+import { webrtcFlow } from "./flows/webrtc";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -67,6 +68,7 @@ export const topics: Flow[] = [
   radiusFlow,
   pppoeFlow,
   smbFlow,
+  webrtcFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
