@@ -2,7 +2,7 @@
 
 ## Current status
 
-M4 Topic page passed (`npm run check` + `npm run e2e`, 4/4 Playwright tests passed with 0 console errors). Starting M5: Rest of the site.
+M6 Documents and CI complete. Starting M7: Content wave 1 (13 remaining topics: tcp, http, udp, ip, dhcp, icmp, tls, https, ssh, smtp, imap, pop3, ftp).
 
 ## Milestones
 
@@ -13,9 +13,9 @@ M4 Topic page passed (`npm run check` + `npm run e2e`, 4/4 Playwright tests pass
 | M2 Engine | done |
 | M3 Stage and device artwork | done |
 | M4 Topic page | done |
-| M5 Rest of the site | in progress |
-| M6 Documents and CI | not started |
-| M7 Content wave 1 | not started |
+| M5 Rest of the site | done |
+| M6 Documents and CI | done |
+| M7 Content wave 1 | in progress |
 | M8 Content wave 2 | not started |
 | M9 Final check | not started |
 
@@ -26,3 +26,5 @@ M4 Topic page passed (`npm run check` + `npm run e2e`, 4/4 Playwright tests pass
 - M2: `npm run test` (22/22 passed), `npm run typecheck` (exit 0).
 - M3: `npm run check` (lint, typecheck, 23/23 tests, static build), headless Chrome check on `/dev/stage/` (light, dark, sequence view, reduced motion, 0 console errors).
 - M4: `npm run check` and `npm run e2e` (4/4 Playwright tests passed, 0 console errors, 375x812 mobile overflow check passed).
+- M5: `npm run check` and `npm run e2e` (7/7 Playwright tests passed across `/`, `/topics/`, `/glossary/`, `/about/`, `/embed/dns/`, `/learn/dns/`, 0 console errors, mobile overflow checks passed).
+- M6: `npm run check` verified.
