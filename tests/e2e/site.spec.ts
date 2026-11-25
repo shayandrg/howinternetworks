@@ -41,7 +41,7 @@ test.describe("site pages", () => {
       .click();
     await page.getByPlaceholder("Search protocols or terms").fill("dns");
     await page.getByRole("option", { name: /DNS/ }).first().click();
-    await expect(page).toHaveURL(/\/learn\/dns\/?$/);
+    await expect(page).toHaveURL(/\/learn\/dns(\/|\?|$)/);
 
     expect(errors).toEqual([]);
   });

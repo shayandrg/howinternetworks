@@ -2,7 +2,7 @@
 
 ## Current status
 
-M6 Documents and CI complete. Starting M7: Content wave 1 (13 remaining topics: tcp, http, udp, ip, dhcp, icmp, tls, https, ssh, smtp, imap, pop3, ftp).
+M7 Content wave 1 complete (all 14 Wave 1 topics passing static validation, layout/timing checks, originality check, and E2E tests). Starting M8: Content wave 2 (25 topics).
 
 ## Milestones
 
@@ -15,8 +15,8 @@ M6 Documents and CI complete. Starting M7: Content wave 1 (13 remaining topics: 
 | M4 Topic page | done |
 | M5 Rest of the site | done |
 | M6 Documents and CI | done |
-| M7 Content wave 1 | in progress |
-| M8 Content wave 2 | not started |
+| M7 Content wave 1 | done |
+| M8 Content wave 2 | in progress |
 | M9 Final check | not started |
 
 ## Gate results
@@ -28,3 +28,4 @@ M6 Documents and CI complete. Starting M7: Content wave 1 (13 remaining topics: 
 - M4: `npm run check` and `npm run e2e` (4/4 Playwright tests passed, 0 console errors, 375x812 mobile overflow check passed).
 - M5: `npm run check` and `npm run e2e` (7/7 Playwright tests passed across `/`, `/topics/`, `/glossary/`, `/about/`, `/embed/dns/`, `/learn/dns/`, 0 console errors, mobile overflow checks passed).
 - M6: `npm run check` verified.
+- M7: `npm run check` (lint, typecheck, 23/23 Vitest unit tests, production build), `npm run e2e` (46/46 Playwright E2E tests across all 14 Wave 1 topics + site routes), `npm run originality` (14 topics, 49 glossary terms, 0 violations) all exited 0.
