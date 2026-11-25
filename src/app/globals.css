@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+}
+
+:root {
+  --color-page-bg: #f5f7fa;
+  --color-card: #ffffff;
+  --color-stage: #ffffff;
+  --color-raised: #eceff4;
+  --color-hairline: rgba(17, 24, 39, 0.08);
+  --color-primary: #111827;
+  --color-secondary: #4b5565;
+  --color-muted: #6b7487;
+  --color-accent: #2456d6;
+  --color-positive: #16a34a;
+  --color-negative: #dc2626;
+
+  --color-tone-lookup: #2f6fde;
+  --color-tone-handshake: #1f9d6a;
+  --color-tone-request: #c27c0e;
+  --color-tone-response: #7c4fd6;
+  --color-tone-secure: #0f8a8a;
+  --color-tone-control: #5b6474;
+  --color-tone-data: #1d8fc4;
+  --color-tone-error: #d0393e;
+}
+
+[data-theme="dark"] {
+  --color-page-bg: #0b0d14;
+  --color-card: #11141c;
+  --color-stage: #0f121a;
+  --color-raised: #1a1e28;
+  --color-hairline: rgba(238, 240, 245, 0.08);
+  --color-primary: #eef0f5;
+  --color-secondary: #a3a9b8;
+  --color-muted: #7a8296;
+  --color-accent: #7aa2ff;
+  --color-positive: #4cc38a;
+  --color-negative: #e5484d;
+
+  --color-tone-lookup: #6ea0ff;
+  --color-tone-handshake: #4cc38a;
+  --color-tone-request: #f0b450;
+  --color-tone-response: #a98bf5;
+  --color-tone-secure: #3fc6c0;
+  --color-tone-control: #9aa3b2;
+  --color-tone-data: #5cc0ec;
+  --color-tone-error: #e5484d;
+}
+
+body {
+  background: var(--color-page-bg);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+}

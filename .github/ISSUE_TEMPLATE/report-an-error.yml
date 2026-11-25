@@ -1,0 +1,41 @@
+name: Report an error
+description: Report a factual error or misleading claim in a topic.
+labels: ["error-report"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: Which topic has the error?
+      placeholder: e.g. dns
+    validations:
+      required: true
+  - type: input
+    id: step
+    attributes:
+      label: Step
+      description: Which step (id or title)?
+      placeholder: e.g. ask-the-resolver
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong
+      description: Describe the error or misleading claim.
+    validations:
+      required: true
+  - type: textarea
+    id: correct
+    attributes:
+      label: What is correct
+      description: What should it say instead?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Link to the RFC, spec or document that confirms the correction.
+    validations:
+      required: true

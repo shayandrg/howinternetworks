@@ -1,0 +1,26 @@
+name: Propose a topic
+description: Suggest a new protocol or concept to cover.
+labels: ["topic-proposal"]
+body:
+  - type: input
+    id: topic
+    attributes:
+      label: Topic
+      description: What protocol or concept should we cover?
+      placeholder: e.g. MQTT
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it matters
+      description: Why would this topic help readers?
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Links to RFCs, specs or official documentation.
+    validations:
+      required: true
