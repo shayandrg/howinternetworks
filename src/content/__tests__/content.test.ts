@@ -18,6 +18,7 @@ const ALLOWED_SPEC_DOMAINS = new Set([
   "www.wireguard.com",
   "www.modbus.org",
   "www.wi-fi.org",
+  "learn.microsoft.com",
 ]);
 
 const BANNED_WORD_RE = /\b(simply|seamless|magic)\b/i;
