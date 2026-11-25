@@ -35,6 +35,7 @@ import { smbFlow } from "./flows/smb";
 import { webrtcFlow } from "./flows/webrtc";
 import { sipFlow } from "./flows/sip";
 import { rtspFlow } from "./flows/rtsp";
+import { rtmpFlow } from "./flows/rtmp";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -73,6 +74,7 @@ export const topics: Flow[] = [
   webrtcFlow,
   sipFlow,
   rtspFlow,
+  rtmpFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
