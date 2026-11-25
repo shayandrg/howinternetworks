@@ -30,6 +30,7 @@ import { wireguardFlow } from "./flows/wireguard";
 import { ipsecFlow } from "./flows/ipsec";
 import { bgpFlow } from "./flows/bgp";
 import { radiusFlow } from "./flows/radius";
+import { pppoeFlow } from "./flows/pppoe";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -63,6 +64,7 @@ export const topics: Flow[] = [
   ipsecFlow,
   bgpFlow,
   radiusFlow,
+  pppoeFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
