@@ -29,6 +29,7 @@ import { socks5Flow } from "./flows/socks5";
 import { wireguardFlow } from "./flows/wireguard";
 import { ipsecFlow } from "./flows/ipsec";
 import { bgpFlow } from "./flows/bgp";
+import { radiusFlow } from "./flows/radius";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -61,6 +62,7 @@ export const topics: Flow[] = [
   wireguardFlow,
   ipsecFlow,
   bgpFlow,
+  radiusFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
