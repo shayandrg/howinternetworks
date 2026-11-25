@@ -14,6 +14,7 @@ import { imapFlow } from "./flows/imap";
 import { pop3Flow } from "./flows/pop3";
 import { ftpFlow } from "./flows/ftp";
 import { ethernetFlow } from "./flows/ethernet";
+import { wifiFlow } from "./flows/wifi";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -31,6 +32,7 @@ export const topics: Flow[] = [
   pop3Flow,
   ftpFlow,
   ethernetFlow,
+  wifiFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
