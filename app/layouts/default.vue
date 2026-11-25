@@ -4,8 +4,11 @@ import { shouldIgnoreKeyEvent } from "@/lib/keyboard";
 import SearchDialog from "~/components/site/SearchDialog.vue";
 import SiteFooter from "~/components/site/SiteFooter.vue";
 import SiteHeader from "~/components/site/SiteHeader.vue";
+import TopicsSidebar from "~/components/site/TopicsSidebar.vue";
 
 const searchOpen = ref(false);
+const mobileSidebarOpen = ref(false);
+const desktopSidebarCollapsed = ref(false);
 const headerRef = ref<InstanceType<typeof SiteHeader> | null>(null);
 
 let onKeyDown: ((e: KeyboardEvent) => void) | null = null;
@@ -36,15 +39,37 @@ function handleClose() {
   searchOpen.value = false;
   requestAnimationFrame(() => headerRef.value?.focusSearchButton());
 }
+
+function handleToggleSidebar() {
+  if (typeof window !== "undefined" && window.innerWidth >= 1024) {
+    desktopSidebarCollapsed.value = !desktopSidebarCollapsed.value;
+  } else {
+    mobileSidebarOpen.value = !mobileSidebarOpen.value;
+  }
+}
 </script>
 
 <template>
   <div class="flex min-h-screen flex-col">
-    <SiteHeader ref="headerRef" @open-search="searchOpen = true" />
-    <main class="flex-1">
-      <slot />
-    </main>
-    <SiteFooter />
+    <SiteHeader
+      ref="headerRef"
+      :sidebar-open="!desktopSidebarCollapsed || mobileSidebarOpen"
+      @open-search="searchOpen = true"
+      @toggle-sidebar="handleToggleSidebar"
+    />
+    <div class="flex flex-1">
+      <TopicsSidebar
+        :open-mobile="mobileSidebarOpen"
+        :collapsed-desktop="desktopSidebarCollapsed"
+        @close-mobile="mobileSidebarOpen = false"
+      />
+      <div class="flex min-w-0 flex-1 flex-col">
+        <main class="flex-1">
+          <slot />
+        </main>
+        <SiteFooter />
+      </div>
+    </div>
     <SearchDialog :open="searchOpen" @close="handleClose" />
   </div>
 </template>

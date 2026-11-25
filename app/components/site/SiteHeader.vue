@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { Search } from "lucide-vue-next";
+import { PanelLeft, Search } from "lucide-vue-next";
 import { siteConfig } from "@/site.config";
 import ThemeToggle from "./ThemeToggle.vue";
 
+defineProps<{
+  sidebarOpen?: boolean;
+}>();
+
 const emit = defineEmits<{
   openSearch: [];
+  toggleSidebar: [];
 }>();
 
 const searchButtonRef = ref<HTMLButtonElement | null>(null);
@@ -24,13 +29,24 @@ defineExpose({
 
 <template>
   <header class="border-b border-[var(--color-hairline)] bg-[var(--color-card)]">
-    <div class="mx-auto flex h-14 max-w-[1320px] items-center justify-between gap-3 px-4">
-      <NuxtLink
-        to="/"
-        class="truncate text-[15px] font-semibold tracking-tight text-[var(--color-primary)]"
-      >
-        {{ siteConfig.name }}
-      </NuxtLink>
+    <div class="mx-auto flex h-14 max-w-[1600px] items-center justify-between gap-3 px-4">
+      <div class="flex min-w-0 items-center gap-2.5">
+        <button
+          type="button"
+          aria-label="Toggle topics sidebar"
+          :aria-expanded="sidebarOpen"
+          class="inline-flex h-9 w-9 shrink-0 cursor-pointer items-center justify-center rounded-[8px] border border-[var(--color-hairline)] bg-[var(--color-page-bg)] text-[var(--color-secondary)] transition-colors duration-150 hover:bg-[var(--color-raised)] hover:text-[var(--color-primary)]"
+          @click="emit('toggleSidebar')"
+        >
+          <PanelLeft :size="18" :stroke-width="1.5" />
+        </button>
+        <NuxtLink
+          to="/"
+          class="truncate text-[15px] font-semibold tracking-tight text-[var(--color-primary)]"
+        >
+          {{ siteConfig.name }}
+        </NuxtLink>
+      </div>
 
       <div class="flex items-center gap-2 sm:gap-4">
         <button

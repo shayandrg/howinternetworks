@@ -18,6 +18,9 @@ test.describe("site pages", () => {
         name: "What happens when you press Enter",
       }),
     ).toBeVisible();
+    await expect(
+      page.getByRole("navigation", { name: "Topic navigation" }),
+    ).toBeVisible();
     await expect(page.locator("svg[role='img']").first()).toBeVisible();
 
     // Theme toggle switches and survives reload

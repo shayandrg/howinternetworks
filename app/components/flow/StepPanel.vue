@@ -27,7 +27,7 @@ const emit = defineEmits<{
 <template>
   <aside
     aria-label="Current step"
-    class="w-full shrink-0 rounded-[16px] border border-[var(--color-hairline)] bg-[var(--color-card)] p-4 desktop:w-[360px]"
+    class="w-full shrink-0 rounded-[16px] border border-[var(--color-hairline)] bg-[var(--color-card)] p-4 lg:w-[340px] 2xl:w-[360px]"
   >
     <div class="text-[12px] font-medium text-[var(--color-muted)] tabular-nums">
       Step {{ stepIndex + 1 }} of {{ totalSteps }}

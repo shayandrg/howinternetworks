@@ -22,10 +22,10 @@ function onSelectChange(e: Event) {
 </script>
 
 <template>
-  <!-- Desktop rail (>= 1100px) -->
+  <!-- Wide desktop rail (>= 1536px) -->
   <nav
     aria-label="Steps"
-    class="hidden w-[240px] shrink-0 desktop:block"
+    class="hidden w-[220px] shrink-0 2xl:block"
   >
     <ol class="space-y-1">
       <li v-for="(step, idx) in steps" :key="step.id">
@@ -61,8 +61,8 @@ function onSelectChange(e: Event) {
     </ol>
   </nav>
 
-  <!-- Tablet dropdown (768px .. 1099px) -->
-  <div class="mb-3 hidden w-full md:block desktop:hidden">
+  <!-- Standard laptop & tablet dropdown (768px .. 1535px) -->
+  <div class="hidden w-full md:block lg:col-span-full 2xl:hidden">
     <label class="relative block">
       <span class="sr-only">Choose step</span>
       <select

@@ -2,8 +2,6 @@
 
 A free, open-source, interactive atlas of how the internet works. Watch data move between devices one step at a time, read a plain-language caption for each step, and open any message to see what is inside it.
 
-Inspired by Protocol Explorer by Dilum Sanjaya. No code or text was copied.
-
 ## Run locally
 
 ```

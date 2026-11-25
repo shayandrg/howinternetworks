@@ -267,8 +267,8 @@ const reportUrl = computed(() => {
       {{ `Step ${stepIndex + 1} of ${flow.steps.length}: ${currentStep.title}. ${stripMarkup(currentStep.simple)}` }}
     </div>
 
-    <!-- Main 3-column player -->
-    <div class="grid grid-cols-1 items-start gap-4 desktop:grid-cols-[240px_minmax(0,1fr)_360px]">
+    <!-- Main player -->
+    <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[220px_minmax(0,1fr)_360px]">
       <StepRail
         :steps="flow.steps"
         :step-index="stepIndex"

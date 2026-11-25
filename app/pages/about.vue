@@ -40,7 +40,7 @@ useSeoMeta({
 
     <section class="space-y-2">
       <h2 class="text-[20px] font-medium text-[var(--color-primary)]">
-        Licenses and credit
+        Licenses
       </h2>
       <p class="text-[15px] leading-[22px] text-[var(--color-secondary)]">
         All software source code is licensed under the MIT License. All
@@ -49,10 +49,6 @@ useSeoMeta({
           src/content/
         </code>
         is licensed under CC BY-SA 4.0.
-      </p>
-      <p class="text-[15px] leading-[22px] text-[var(--color-primary)]">
-        Inspired by Protocol Explorer by Dilum Sanjaya. No code or text was
-        copied.
       </p>
     </section>
 
