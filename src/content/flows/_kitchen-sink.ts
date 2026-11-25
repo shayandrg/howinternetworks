@@ -1,1 +1,232 @@
-// Stub
+import { defineFlow } from "../schema";
+import {
+  LAPTOP_IP,
+  LAPTOP_MAC,
+  RESOLVER_IP,
+  ROUTER_LAN_IP,
+  ROUTER_MAC,
+  WEB_DOMAIN,
+  WEB_SERVER_IP,
+} from "../world";
+import { ethernetLayer, ipv4Layer, tcpLayer } from "../builders/layers";
+
+/**
+ * Development-only flow exercising every actor kind, link medium, and event type.
+ * Exempt from content writing rules 4, 8, 9, and 10 per section 6.1.
+ */
+export const kitchenSinkFlow = defineFlow({
+  meta: {
+    slug: "kitchen-sink",
+    kind: "flow",
+    collection: "protocols",
+    group: "delivery",
+    title: "Kitchen Sink",
+    fullName: "Stage and Engine Test Flow",
+    tagline: "Exercises every actor kind, link medium, and event type",
+    layer: { tcpip: "application", osi: 7 },
+    prerequisites: [],
+    related: [],
+    tags: ["dev", "test"],
+    sources: [
+      { label: "RFC 9293", url: "https://www.rfc-editor.org/rfc/rfc9293" },
+    ],
+    status: "reviewed",
+    lastVerified: "2026-11-25",
+  },
+  intro: {
+    simple: "Development test flow showing all stage actors and events.",
+    technical: "Development test flow for M3 verification.",
+  },
+  facts: [
+    { label: "Actors", value: "20 kinds" },
+    { label: "Mediums", value: "5 link kinds" },
+    { label: "Events", value: "All 11 types" },
+    { label: "Scope", value: "Dev only" },
+  ],
+  scene: {
+    actors: [
+      { id: "laptop", kind: "laptop", label: "Laptop", sublabel: LAPTOP_IP, at: { x: 100, y: 90 } },
+      { id: "phone", kind: "phone", label: "Phone", sublabel: "192.168.1.11", at: { x: 260, y: 90 } },
+      { id: "desktop", kind: "desktop", label: "Desktop", sublabel: "192.168.1.12", at: { x: 420, y: 90 } },
+      { id: "person", kind: "person", label: "You", at: { x: 580, y: 90 } },
+      { id: "camera", kind: "camera", label: "Camera", at: { x: 740, y: 90 } },
+      { id: "tv-box", kind: "tv-box", label: "TV Box", at: { x: 900, y: 90 } },
+
+      { id: "ap", kind: "access-point", label: "Access Point", at: { x: 100, y: 230 } },
+      { id: "sw", kind: "switch", label: "Switch", at: { x: 260, y: 230 } },
+      { id: "router", kind: "router", label: "Router", sublabel: ROUTER_LAN_IP, at: { x: 420, y: 230 } },
+      { id: "modem", kind: "modem", label: "Modem", at: { x: 580, y: 230 } },
+      { id: "cloud", kind: "cloud", label: "Internet", at: { x: 740, y: 230 } },
+      { id: "plc", kind: "plc", label: "PLC", at: { x: 900, y: 230 } },
+
+      { id: "proxy", kind: "proxy", label: "Proxy", at: { x: 100, y: 370 } },
+      { id: "vpn", kind: "vpn-server", label: "VPN Server", at: { x: 260, y: 370 } },
+      { id: "lb", kind: "load-balancer", label: "Load Balancer", at: { x: 420, y: 370 } },
+      { id: "dns", kind: "dns-server", label: "DNS", sublabel: RESOLVER_IP, at: { x: 580, y: 370 } },
+      { id: "web", kind: "web-server", label: "Web Server", sublabel: WEB_SERVER_IP, at: { x: 740, y: 370 } },
+      { id: "mail", kind: "mail-server", label: "Mail Server", at: { x: 900, y: 370 } },
+
+      { id: "server", kind: "server", label: "App Server", at: { x: 260, y: 485 } },
+      { id: "files", kind: "file-server", label: "File Server", at: { x: 580, y: 485 } },
+    ],
+    links: [
+      { id: "l-wifi", from: "laptop", to: "ap", medium: "wifi" },
+      { id: "l-eth1", from: "ap", to: "sw", medium: "ethernet" },
+      { id: "l-eth2", from: "sw", to: "router", medium: "ethernet" },
+      { id: "l-fiber", from: "router", to: "modem", medium: "fiber" },
+      { id: "l-inet", from: "modem", to: "cloud", medium: "internet" },
+      { id: "l-web", from: "cloud", to: "web", medium: "internet" },
+      { id: "l-tun", from: "laptop", to: "vpn", medium: "tunnel", hidden: true },
+      { id: "l-vpn-srv", from: "vpn", to: "server", medium: "ethernet" },
+      { id: "l-srv-files", from: "server", to: "files", medium: "fiber" },
+    ],
+    start: {
+      visible: [
+        "laptop",
+        "phone",
+        "desktop",
+        "person",
+        "camera",
+        "tv-box",
+        "ap",
+        "sw",
+        "router",
+        "modem",
+        "cloud",
+        "plc",
+        "proxy",
+        "vpn",
+        "lb",
+        "dns",
+        "web",
+        "mail",
+        "server",
+      ],
+      focus: ["laptop", "tv-box", "proxy", "mail", "server", "files"],
+    },
+  },
+  steps: [
+    {
+      id: "ks-screens",
+      title: "Screens and reveal",
+      simple: "Shows browser, terminal, mail screens and actor reveal.",
+      technical: "Tests reveal, highlight, screen, note, and focus.",
+      events: [
+        {
+          type: "together",
+          events: [
+            { type: "reveal", actors: ["files"], links: ["l-tun"] },
+            { type: "highlight", actors: ["laptop", "vpn"] },
+            {
+              type: "screen",
+              at: "laptop",
+              screen: { app: "browser", url: WEB_DOMAIN, secure: true, state: "typing" },
+            },
+            {
+              type: "screen",
+              at: "desktop",
+              screen: { app: "terminal", lines: ["$ ping example.com", "64 bytes from ..."] },
+            },
+            {
+              type: "screen",
+              at: "mail",
+              screen: { app: "mail", state: "inbox", subject: "Hello" },
+            },
+          ],
+        },
+        { type: "note", id: "n1", at: "router", text: "Tunnel active", tone: "secure", persist: true },
+      ],
+    },
+    {
+      id: "ks-packets",
+      title: "Packets and stream",
+      simple: "Sends encrypted, lost, and streamed packets across links.",
+      technical: "Tests packet, encrypted layer collapse, lost packet, and stream.",
+      events: [
+        {
+          type: "focus",
+          actors: ["laptop", "ap", "router", "modem", "cloud", "web"],
+        },
+        {
+          type: "packet",
+          id: "ks-req",
+          from: "laptop",
+          to: "web",
+          tone: "secure",
+          label: "TLS App Data",
+          locked: true,
+          layers: [
+            ethernetLayer({ srcMac: LAPTOP_MAC, dstMac: ROUTER_MAC }),
+            ipv4Layer({ src: LAPTOP_IP, dst: WEB_SERVER_IP, protocol: "TCP (6)", totalLength: 120 }),
+            tcpLayer({ sport: 52344, dport: 443, flags: "PSH, ACK", seq: 1, ack: 1, payloadBytes: 80 }),
+            {
+              name: "TLS 1.3 Application Data",
+              encrypted: true,
+              summary: "80 B encrypted",
+              fields: [{ name: "HTTP/1.1", value: "GET / HTTP/1.1" }],
+            },
+          ],
+          capture: {
+            time: 0.01,
+            src: LAPTOP_IP,
+            dst: WEB_SERVER_IP,
+            protocol: "TLSv1.3",
+            info: "Application Data",
+            bytes: 134,
+          },
+        },
+        {
+          type: "packet",
+          id: "ks-lost",
+          from: "web",
+          to: "laptop",
+          tone: "error",
+          label: "Dropped",
+          lost: true,
+          capture: {
+            time: 0.03,
+            src: WEB_SERVER_IP,
+            dst: LAPTOP_IP,
+            protocol: "TCP",
+            info: "Lost response",
+            bytes: 60,
+          },
+        },
+      ],
+    },
+    {
+      id: "ks-stream",
+      title: "Stream and hide",
+      simple: "Streams segments and hides a link.",
+      technical: "Tests stream with lostIndexes, badge, wait, and hide.",
+      events: [
+        {
+          type: "stream",
+          id: "ks-burst",
+          from: "laptop",
+          to: "files",
+          via: ["vpn", "server"],
+          tone: "data",
+          label: "Chunk",
+          count: 4,
+          lostIndexes: [2],
+          captures: [
+            { time: 0.05, src: LAPTOP_IP, dst: "10.0.0.5", protocol: "SMB", info: "Chunk 1", bytes: 1514 },
+            { time: 0.06, src: LAPTOP_IP, dst: "10.0.0.5", protocol: "SMB", info: "Chunk 2", bytes: 1514 },
+            { time: 0.07, src: LAPTOP_IP, dst: "10.0.0.5", protocol: "SMB", info: "Chunk 3 (lost)", bytes: 1514 },
+            { time: 0.08, src: LAPTOP_IP, dst: "10.0.0.5", protocol: "SMB", info: "Chunk 4", bytes: 900 },
+          ],
+        },
+        { type: "badge", at: "files", text: "Received 3/4", tone: "data" },
+        { type: "hide", links: ["l-tun"] },
+        { type: "wait", ms: 200 },
+      ],
+    },
+  ],
+  outro: {
+    title: "Kitchen sink complete",
+    simple: "All actor kinds and event types rendered.",
+    technical: "Kitchen sink verification finished.",
+    facts: [{ label: "Status", value: "OK" }],
+  },
+});

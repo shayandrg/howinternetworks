@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { topics } from "@/content";
+import { kitchenSinkFlow } from "@/content/flows/_kitchen-sink";
 import { compileFlow } from "../compile";
 import { frameAt } from "../frame";
 import { actorBoundingBox, WORLD_HEIGHT, WORLD_WIDTH } from "../camera";
@@ -85,5 +86,12 @@ describe("topic layout, timing, and visibility rules (12, 13, 14)", () => {
         }
       }
     }
+  });
+
+  it("compiles kitchenSinkFlow cleanly with no actor overlap", () => {
+    const timeline = compileFlow(kitchenSinkFlow);
+    expect(timeline.steps).toHaveLength(3);
+    const fEnd = frameAt(timeline, timeline.totalMs);
+    expect(fEnd.visibleCaptures).toBe(6);
   });
 });
