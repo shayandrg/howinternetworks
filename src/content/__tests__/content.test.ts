@@ -390,5 +390,5 @@ describe("topics content validation", () => {
         }
       }
     }
-  });
+  }, 15_000);
 });

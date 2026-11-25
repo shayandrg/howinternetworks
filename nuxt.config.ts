@@ -9,7 +9,7 @@ const flowSlugs = fs
   .map((name) => name.replace(/\.ts$/, ""));
 
 export default defineNuxtConfig({
-  compatibilityDate: "2026-11-26",
+  compatibilityDate: "2026-11-25",
   ssr: true,
   alias: {
     "@": fileURLToPath(new URL("./src", import.meta.url)),

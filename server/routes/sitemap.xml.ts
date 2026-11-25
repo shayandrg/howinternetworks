@@ -1,7 +1,7 @@
 import { defineEventHandler, setHeader } from "h3";
 import { topics } from "@/content";
 
-const BASE_URL = "https://howinternetworks.org";
+const BASE_URL = "https://howinternetworks.com";
 
 export default defineEventHandler((event) => {
   setHeader(event, "content-type", "application/xml; charset=utf-8");
