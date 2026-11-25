@@ -95,7 +95,7 @@ export function compileFlow(flow: Flow): CompiledTimeline {
   let cursorMs = 0;
 
   for (let stepIndex = 0; stepIndex < flow.steps.length; stepIndex++) {
-    const step = flow.steps[stepIndex];
+    const step = flow.steps[stepIndex]!;
     const stepStartMs = cursorMs;
     const stepEndMsRef = { value: stepStartMs };
     const ctx: CompileContext = {
@@ -111,7 +111,7 @@ export function compileFlow(flow: Flow): CompiledTimeline {
         cursorMs += EVENT_GAP_MS;
       }
       const ev = compileEventNode(
-        step.events[i],
+        step.events[i]!,
         cursorMs,
         stepIndex,
         stepEndMsRef,

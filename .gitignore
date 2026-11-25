@@ -13,7 +13,11 @@
 # testing
 /coverage
 
-# next.js
+# nuxt & cloudflare
+/.nuxt/
+/.output/
+/.wrangler/
+/dist/
 /.next/
 /out/
 

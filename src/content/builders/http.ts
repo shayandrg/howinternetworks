@@ -1,6 +1,6 @@
 import type { StageEvent, Tone } from "@/engine/types";
 import { EPHEMERAL_PORT_START, LAPTOP_MAC, ROUTER_MAC } from "@/content/world";
-import { IPV4_HEADER, TCP_BASE_HEADER, tcpFrameBytes } from "./sizes";
+import { IPV4_HEADER, TCP_BASE_HEADER, tcpFrameBytes, utf8ByteLength } from "./sizes";
 import { ethernetLayer, ipv4Layer, tcpLayer } from "./layers";
 
 export interface HttpReqOpts {
@@ -28,7 +28,7 @@ export function httpRequest(opts: HttpReqOpts): StageEvent {
   const method = opts.method ?? "GET";
   const path = opts.path ?? "/";
   const rawHttp = `${method} ${path} HTTP/1.1\r\nHost: ${opts.host}\r\nAccept: text/html\r\n\r\n`;
-  const payloadBytes = Buffer.byteLength(rawHttp, "utf8");
+  const payloadBytes = utf8ByteLength(rawHttp);
   const { frameBytes } = tcpFrameBytes(0, payloadBytes);
 
   return {
@@ -104,7 +104,7 @@ export function httpResponse(opts: HttpResOpts): StageEvent {
   const statusText = opts.statusText ?? "OK";
   const contentType = opts.contentType ?? "text/html; charset=utf-8";
   const headerStr = `HTTP/1.1 ${status} ${statusText}\r\nContent-Type: ${contentType}\r\nContent-Length: ${opts.bodyBytes}\r\n\r\n`;
-  const payloadBytes = Buffer.byteLength(headerStr, "utf8") + opts.bodyBytes;
+  const payloadBytes = utf8ByteLength(headerStr) + opts.bodyBytes;
   const { frameBytes } = tcpFrameBytes(0, payloadBytes);
 
   return {

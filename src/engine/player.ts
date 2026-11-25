@@ -1,6 +1,3 @@
-"use client";
-
-import { useSyncExternalStore } from "react";
 import type { CompiledTimeline } from "./compile";
 import { stepIndexAtTime } from "./frame";
 
@@ -189,7 +186,7 @@ export class FlowPlayerStore {
       this.pausedAtStepEnd = false;
       if (stepIndex < steps.length - 1) {
         stepIndex = stepIndex + 1;
-        startT = steps[stepIndex].startMs;
+        startT = steps[stepIndex]!.startMs;
       }
     }
 
@@ -214,7 +211,7 @@ export class FlowPlayerStore {
     const { steps } = this.timeline;
     if (steps.length === 0) return;
     const targetIdx = Math.min(steps.length - 1, this.state.stepIndex + 1);
-    const targetStep = steps[targetIdx];
+    const targetStep = steps[targetIdx]!;
     this.pausedAtStepEnd = false;
     this.setState({
       t: targetStep.startMs,
@@ -227,7 +224,7 @@ export class FlowPlayerStore {
   prev(): void {
     const { steps } = this.timeline;
     if (steps.length === 0) return;
-    const curr = steps[this.state.stepIndex];
+    const curr = steps[this.state.stepIndex]!;
     this.pausedAtStepEnd = false;
     if (this.state.t - curr.startMs > STEP_PREV_THRESHOLD_MS) {
       this.setState({ t: curr.startMs, stepIndex: curr.stepIndex });
@@ -235,7 +232,7 @@ export class FlowPlayerStore {
     }
     const prevIdx = Math.max(0, this.state.stepIndex - 1);
     this.setState({
-      t: steps[prevIdx].startMs,
+      t: steps[prevIdx]!.startMs,
       stepIndex: prevIdx,
     });
   }
@@ -246,7 +243,7 @@ export class FlowPlayerStore {
     const clamped = Math.max(0, Math.min(steps.length - 1, stepIndex));
     this.pausedAtStepEnd = false;
     this.setState({
-      t: steps[clamped].startMs,
+      t: steps[clamped]!.startMs,
       stepIndex: clamped,
       playing: autoPlay,
     });
@@ -286,15 +283,4 @@ export function createPlayer(
   initial?: Partial<{ speed: PlaybackSpeed; mode: PlaybackMode }>,
 ): FlowPlayerStore {
   return new FlowPlayerStore(timeline, initial);
-}
-
-export function usePlayerSelector<T>(
-  store: FlowPlayerStore,
-  selector: (state: PlayerState) => T,
-): T {
-  return useSyncExternalStore(
-    store.subscribe,
-    () => selector(store.getState()),
-    () => selector(store.getState()),
-  );
 }

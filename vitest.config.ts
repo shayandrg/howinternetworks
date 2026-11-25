@@ -1,16 +1,17 @@
+import path from "node:path";
+import vue from "@vitejs/plugin-vue";
 import { defineConfig } from "vitest/config";
-import react from "@vitejs/plugin-react";
-import path from "path";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [vue()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"),
+      "@": path.resolve(import.meta.dirname, "src"),
+      "~": path.resolve(import.meta.dirname, "app"),
     },
   },
   test: {
     environment: "jsdom",
-    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+    include: ["src/**/*.test.ts", "app/**/*.test.ts"],
   },
 });

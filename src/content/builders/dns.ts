@@ -7,6 +7,7 @@ import {
   IPV4_HEADER,
   UDP_HEADER,
   udpFrameBytes,
+  utf8ByteLength,
 } from "./sizes";
 import { ethernetLayer, ipv4Layer, udpLayer } from "./layers";
 
@@ -73,10 +74,10 @@ function rdataWireLength(record: DnsRecordSpec): number {
   if (record.type === "AAAA") return 16;
   if (record.type === "NS" || record.type === "CNAME") {
     return record.compressedValue
-      ? dnsNameWireLength(record.value.split(".")[0]) + 1 // label + 2-byte pointer minus root 1 byte
+      ? dnsNameWireLength(record.value.split(".")[0] ?? "") + 1 // label + 2-byte pointer minus root 1 byte
       : dnsNameWireLength(record.value);
   }
-  return Buffer.byteLength(record.value, "utf8") + 2;
+  return utf8ByteLength(record.value) + 2;
 }
 
 function rrWireLength(record: DnsRecordSpec): number {
@@ -219,7 +220,7 @@ export function dnsResponse(opts: DnsResponseOpts): StageEvent {
       value:
         opts.authorities.length <= 2
           ? opts.authorities.map((a) => `${a.name} NS ${a.value}`).join("; ")
-          : `${opts.authorities[0].name} NS (${opts.authorities.length} servers)`,
+          : `${opts.authorities[0]!.name} NS (${opts.authorities.length} servers)`,
     });
   }
   if (opts.additionals?.length) {

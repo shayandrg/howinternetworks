@@ -79,11 +79,12 @@ export function ipv6Layer(opts: Ipv6LayerOpts): Layer {
 export interface UdpLayerOpts {
   sport: number;
   dport: number;
-  payloadBytes: number;
+  payloadBytes?: number;
+  length?: number;
 }
 
 export function udpLayer(opts: UdpLayerOpts): Layer {
-  const length = UDP_HEADER + opts.payloadBytes;
+  const length = opts.length ?? UDP_HEADER + (opts.payloadBytes ?? 0);
   return {
     name: "UDP",
     summary: `${opts.sport} -> ${opts.dport} (${length} B)`,

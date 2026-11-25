@@ -21,6 +21,9 @@ test.describe("topic pages", () => {
       await expect(
         page.getByRole("heading", { level: 1, name: topic.meta.title }),
       ).toBeVisible();
+      await expect(
+        page.getByRole("button", { name: /Switch to .* theme/ }),
+      ).toBeVisible();
 
       // Step through to the last step using ArrowRight
       for (let i = 1; i < topic.steps.length; i++) {

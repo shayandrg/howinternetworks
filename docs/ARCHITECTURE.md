@@ -41,13 +41,13 @@ Routes are resolved at compile time in `src/engine/route.ts` either across expli
 
 `FlowPlayerStore` is a framework-free store driven by `requestAnimationFrame`, clamping frame deltas to `50 ms` and pausing automatically when `document.hidden` becomes true. In default `"step"` mode, playback halts at the exact end of the active step until the user presses Play or Next. Home hero playback uses `"continuous"` mode.
 
-React components read state via `usePlayerSelector(store, selector)` backed by `useSyncExternalStore`. Only `Stage` and `SequenceView` subscribe to `t`; `StepRail`, `StepPanel`, and `CaptureTable` subscribe only to `stepIndex` or `visibleCaptures` so they do not re-render every animation frame.
+Vue components read state via `usePlayerSelector(store, selector)` (`app/composables/usePlayer.ts`). Only stage and sequence components subscribe to `t`; `StepRail`, `StepPanel`, and `CaptureTable` subscribe only to `stepIndex` or `visibleCaptures` so they do not re-render every animation frame.
 
 ## Three views and the capture table
 
-1. **Network (`src/stage/Stage.tsx`)**: SVG stage rendering links, actors (`src/stage/actors/`), screens, badges, packet trails and chips, loss markers, and callout notes.
-2. **Sequence (`src/stage/SequenceView.tsx`)**: Vertical lifelines ordered by actor `x` coordinate with step bands and progressive horizontal arrows built from the same compiled timeline.
-3. **What's inside (`src/stage/Inspector.tsx`)**: Nested envelope inspection of the selected packet's `layers`, with a `"What others on the network can see"` toggle that collapses `encrypted: true` layers into locked summary blocks.
+1. **Network (`app/components/stage/StageCanvas.vue`)**: SVG stage rendering links, actors (`src/stage/actor-specs.ts` + `app/components/stage/ActorIcon.vue`), screens, badges, packet trails and chips, loss markers, and callout notes.
+2. **Sequence (`app/components/stage/SequenceView.vue`)**: Vertical lifelines ordered by actor `x` coordinate with step bands and progressive horizontal arrows built from the same compiled timeline.
+3. **What's inside (`app/components/stage/PacketInspector.vue`)**: Nested envelope inspection of the selected packet's `layers`, with a `"What others on the network can see"` toggle that collapses `encrypted: true` layers into locked summary blocks.
 
 `CaptureTable` displays a sticky-header table of captured frames as their packets begin, highlights the active packet, and seeks/selects on click or `Enter`.
 
@@ -66,5 +66,5 @@ Suppose a future topic needs a `"pulse-wave"` event (for example, radiating Wi-F
    }
    ```
 3. **Evaluate it in `frameAt`** (`src/engine/frame.ts`) when `ce.startMs <= t && t <= ce.endMs`, adding any computed geometry to `Frame`.
-4. **Render it** in a dedicated SVG layer under `src/stage/layers/` and mount it inside `Stage.tsx`.
+4. **Render it** in a dedicated SVG layer under `app/components/stage/` and mount it inside `StageCanvas.vue`.
 5. **Add unit tests** in `src/engine/__tests__/frame.test.ts` verifying duration and purity.

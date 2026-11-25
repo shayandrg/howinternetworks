@@ -15,6 +15,12 @@ export const DNS_HEADER = 12;
 export const DNS_OPT_RR_BYTES = 11;
 export const ARP_PAYLOAD_BYTES = 28;
 
+const utf8Encoder = new TextEncoder();
+
+export function utf8ByteLength(text: string): number {
+  return utf8Encoder.encode(text).length;
+}
+
 export function padFrameBytes(rawBytes: number): number {
   return Math.max(MIN_FRAME_BYTES, rawBytes);
 }
@@ -28,7 +34,7 @@ export function dnsNameWireLength(name: string): number {
   const labels = trimmed.split(".");
   let total = 1; // terminating root zero-length label
   for (const label of labels) {
-    total += 1 + Buffer.byteLength(label, "utf8");
+    total += 1 + utf8ByteLength(label);
   }
   return total;
 }

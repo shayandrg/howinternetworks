@@ -2,7 +2,7 @@
 
 ## Current status
 
-M7 Content wave 1 complete (all 14 Wave 1 topics passing static validation, layout/timing checks, originality check, and E2E tests). Starting M8: Content wave 2 (25 topics).
+All 39 topics (Wave 1 + Wave 2), Nuxt 4 static site migration (`nuxt generate` -> `.output/public`), and Cloudflare Workers Static Assets configuration (`wrangler.jsonc`) are complete and verified.
 
 ## Milestones
 
@@ -16,16 +16,21 @@ M7 Content wave 1 complete (all 14 Wave 1 topics passing static validation, layo
 | M5 Rest of the site | done |
 | M6 Documents and CI | done |
 | M7 Content wave 1 | done |
-| M8 Content wave 2 | in progress |
-| M9 Final check | not started |
+| M8 Content wave 2 | done |
+| Nuxt 4 static + Cloudflare Workers migration | done |
+| M9 Final check | done |
 
 ## Gate results
 
-- M0: `npm run lint` (0 errors, 0 warnings), `npm run typecheck` (exit 0), `npm run build` (exit 0, `out/index.html` present).
-- M1: `npm run test` (8/8 passed), `npm run typecheck` (exit 0), `npm run originality` (1 topic, 16 glossary terms, 0 violations).
-- M2: `npm run test` (22/22 passed), `npm run typecheck` (exit 0).
-- M3: `npm run check` (lint, typecheck, 23/23 tests, static build), headless Chrome check on `/dev/stage/` (light, dark, sequence view, reduced motion, 0 console errors).
-- M4: `npm run check` and `npm run e2e` (4/4 Playwright tests passed, 0 console errors, 375x812 mobile overflow check passed).
-- M5: `npm run check` and `npm run e2e` (7/7 Playwright tests passed across `/`, `/topics/`, `/glossary/`, `/about/`, `/embed/dns/`, `/learn/dns/`, 0 console errors, mobile overflow checks passed).
-- M6: `npm run check` verified.
-- M7: `npm run check` (lint, typecheck, 23/23 Vitest unit tests, production build), `npm run e2e` (46/46 Playwright E2E tests across all 14 Wave 1 topics + site routes), `npm run originality` (14 topics, 49 glossary terms, 0 violations) all exited 0.
+- `npm run originality`: passed (`39 topic(s), 98 glossary terms checked against 24708 research 8-grams`).
+- `npm run lint` (`eslint .`): passed (0 errors, 0 warnings).
+- `npm run typecheck` (`nuxt prepare && nuxt typecheck`): passed (exit 0).
+- `npm run test` (`vitest run`): 7/7 test files, 23/23 tests passed.
+- `npm run build` (`nuxt generate`): passed, 171 prerendered routes written to `.output/public/`.
+- `npx wrangler deploy --dry-run`: passed (`328 files from the assets directory .output/public`).
+- `npm run e2e` (`playwright test`): 121/121 passed across all 39 topics (playback, Sequence view, Technical mode, packet capture/inspector, `?step=2` deep link, `375x812` mobile overflow check, zero console/page errors) and `/`, `/topics/`, `/glossary/`, `/about/`, `/embed/http/`.
+
+## Draft topics and follow-up notes
+
+- `rtmp` (`src/content/flows/rtmp.ts`) remains `status: "draft"` with `reviewNotes` explaining why: Adobe's historical RTMP specification URL (`rtmp_specification_1.0.pdf`) is no longer hosted on an allowlisted primary domain (`www.adobe.com` is outside `ALLOWED_SPEC_DOMAINS`), while IANA's service registry for port `1935` is cited cleanly.
+- Cloudflare Workers GitHub dashboard settings for deploy: set **Build command** to `npm run build` (`nuxt generate`) and **Deploy command** to `npx wrangler deploy`.

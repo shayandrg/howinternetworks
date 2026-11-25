@@ -1,7 +1,7 @@
 import { defineFlow } from "../schema";
 import { ethernetLayer, ipv4Layer, tcpLayer, udpLayer } from "../builders/layers";
 import { IPV4_HEADER, padFrameBytes, TCP_BASE_HEADER, UDP_HEADER } from "../builders/sizes";
-import { EPHEMERAL_PORT_START, LAPTOP_IP, LAPTOP_MAC, ROUTER_LAN_IP, ROUTER_MAC, ROUTER_WAN_IP, SERVER_MAC } from "../world";
+import { EPHEMERAL_PORT_START, LAPTOP_IP, LAPTOP_MAC, ROUTER_MAC, ROUTER_WAN_IP } from "../world";
 
 const SIGNAL_IP = "203.0.113.40";
 const STUN_IP = "198.51.100.34";

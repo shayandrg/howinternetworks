@@ -1,7 +1,7 @@
 import { defineFlow } from "../schema";
 import { tcpHandshake } from "../builders/tcp";
 import { ethernetLayer, ipv4Layer, tcpLayer } from "../builders/layers";
-import { IPV4_HEADER, padFrameBytes, TCP_BASE_HEADER } from "../builders/sizes";
+import { padFrameBytes } from "../builders/sizes";
 import { EPHEMERAL_PORT_START, LAPTOP_IP, LAPTOP_MAC, ROUTER_LAN_IP, ROUTER_MAC, SERVER_MAC } from "../world";
 
 const PLC_IP = "192.168.1.70";

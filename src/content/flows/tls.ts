@@ -97,7 +97,7 @@ export const tlsFlow = defineFlow({
           startTime: 0.0,
           rtt: 0.02,
           prefix: "tls13",
-        })[0],
+        })[0]!,
       ],
     },
     {
@@ -125,7 +125,7 @@ export const tlsFlow = defineFlow({
           startTime: 0.0,
           rtt: 0.02,
           prefix: "tls13",
-        })[1],
+        })[1]!,
         {
           type: "note",
           id: "note-cert-ok",
@@ -160,7 +160,7 @@ export const tlsFlow = defineFlow({
           startTime: 0.0,
           rtt: 0.02,
           prefix: "tls13",
-        })[2],
+        })[2]!,
         { type: "wait", ms: 800 },
       ],
     },

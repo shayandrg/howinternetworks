@@ -1,7 +1,6 @@
 import { defineFlow } from "../schema";
 import { ethernetLayer, ipv4Layer, udpLayer } from "../builders/layers";
-import { IPV4_HEADER, UDP_HEADER, padFrameBytes, udpFrameBytes } from "../builders/sizes";
-import { ETH_HEADER } from "../builders/sizes";
+import { ETH_HEADER, IPV4_HEADER, UDP_HEADER, padFrameBytes, udpFrameBytes } from "../builders/sizes";
 import { LAPTOP_IP, LAPTOP_MAC, ROUTER_LAN_IP, ROUTER_MAC, WEB_SERVER_IP } from "../world";
 
 const ICMP_PING_BYTES = padFrameBytes(ETH_HEADER + IPV4_HEADER + 8 + 32);

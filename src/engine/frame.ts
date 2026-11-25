@@ -26,7 +26,7 @@ export function stepIndexAtTime(
   if (t <= 0) return 0;
   if (t >= timeline.totalMs) return steps.length - 1;
   for (let i = 0; i < steps.length; i++) {
-    if (t < steps[i].endMs) return i;
+    if (t < steps[i]!.endMs) return i;
   }
   return steps.length - 1;
 }

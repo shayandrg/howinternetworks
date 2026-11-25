@@ -25,8 +25,10 @@ function findLinkBetween(
 export function polylineLength(points: ReadonlyArray<[number, number]>): number {
   let total = 0;
   for (let i = 1; i < points.length; i++) {
-    const dx = points[i][0] - points[i - 1][0];
-    const dy = points[i][1] - points[i - 1][1];
+    const a = points[i - 1]!;
+    const b = points[i]!;
+    const dx = b[0] - a[0];
+    const dy = b[1] - a[1];
     total += Math.hypot(dx, dy);
   }
   return total;
@@ -39,27 +41,27 @@ export function pointAlongPolyline(
   if (points.length === 0) {
     return { x: 0, y: 0, trail: [] };
   }
+  const first = points[0]!;
   if (points.length === 1 || fraction <= 0) {
-    return { x: points[0][0], y: points[0][1], trail: [points[0]] };
+    return { x: first[0], y: first[1], trail: [first] };
   }
+  const last = points[points.length - 1]!;
   if (fraction >= 1) {
-    const last = points[points.length - 1];
     return { x: last[0], y: last[1], trail: [...points] };
   }
 
   const total = polylineLength(points);
   if (total === 0) {
-    const last = points[points.length - 1];
-    return { x: last[0], y: last[1], trail: [points[0]] };
+    return { x: last[0], y: last[1], trail: [first] };
   }
 
   const target = total * fraction;
   let walked = 0;
-  const trail: Array<[number, number]> = [points[0]];
+  const trail: Array<[number, number]> = [first];
 
   for (let i = 1; i < points.length; i++) {
-    const [x1, y1] = points[i - 1];
-    const [x2, y2] = points[i];
+    const [x1, y1] = points[i - 1]!;
+    const [x2, y2] = points[i]!;
     const segLen = Math.hypot(x2 - x1, y2 - y1);
     if (walked + segLen >= target) {
       const localT = segLen === 0 ? 1 : (target - walked) / segLen;
@@ -72,7 +74,6 @@ export function pointAlongPolyline(
     trail.push([x2, y2]);
   }
 
-  const last = points[points.length - 1];
   return { x: last[0], y: last[1], trail: [...points] };
 }
 
@@ -102,8 +103,8 @@ export function resolveRoute(
   if (via && via.length > 0) {
     actorIds = [from, ...via, to];
     for (let i = 0; i < actorIds.length - 1; i++) {
-      const u = actorIds[i];
-      const v = actorIds[i + 1];
+      const u = actorIds[i]!;
+      const v = actorIds[i + 1]!;
       if (!actorMap.has(u) || !actorMap.has(v)) {
         throw new Error(`${contextLabel}: unknown via actor in "${u} -> ${v}"`);
       }
@@ -150,10 +151,12 @@ export function resolveRoute(
     }
 
     for (let i = 0; i < actorIds.length - 1; i++) {
-      const link = findLinkBetween(scene.links, actorIds[i], actorIds[i + 1]);
+      const u = actorIds[i]!;
+      const v = actorIds[i + 1]!;
+      const link = findLinkBetween(scene.links, u, v);
       if (!link) {
         throw new Error(
-          `${contextLabel}: missing link between "${actorIds[i]}" and "${actorIds[i + 1]}"`,
+          `${contextLabel}: missing link between "${u}" and "${v}"`,
         );
       }
       linkIds.push(link.id);
