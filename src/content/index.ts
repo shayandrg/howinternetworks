@@ -11,6 +11,7 @@ import { httpsFlow } from "./flows/https";
 import { sshFlow } from "./flows/ssh";
 import { smtpFlow } from "./flows/smtp";
 import { imapFlow } from "./flows/imap";
+import { pop3Flow } from "./flows/pop3";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -25,6 +26,7 @@ export const topics: Flow[] = [
   sshFlow,
   smtpFlow,
   imapFlow,
+  pop3Flow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
