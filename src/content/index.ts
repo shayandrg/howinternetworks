@@ -9,6 +9,7 @@ import { icmpFlow } from "./flows/icmp";
 import { tlsFlow } from "./flows/tls";
 import { httpsFlow } from "./flows/https";
 import { sshFlow } from "./flows/ssh";
+import { smtpFlow } from "./flows/smtp";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -21,6 +22,7 @@ export const topics: Flow[] = [
   tlsFlow,
   httpsFlow,
   sshFlow,
+  smtpFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
