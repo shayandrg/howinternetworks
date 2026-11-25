@@ -15,6 +15,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://howinternetworks.com"),
   title: {
     template: "%s \u00b7 How the Internet Works",
     default: "How the Internet Works",

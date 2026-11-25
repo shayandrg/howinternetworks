@@ -24,7 +24,7 @@ export function StepRail({
       {/* Desktop rail (>= 1100px) */}
       <nav
         aria-label="Steps"
-        className="hidden w-[240px] shrink-0 min-[1100px]:block"
+        className="hidden w-[240px] shrink-0 desktop:block"
       >
         <ol className="space-y-1">
           {steps.map((step, idx) => {
@@ -66,7 +66,7 @@ export function StepRail({
       </nav>
 
       {/* Tablet dropdown (768px .. 1099px) */}
-      <div className="mb-3 hidden md:block min-[1100px]:hidden">
+      <div className="mb-3 hidden w-full md:block desktop:hidden">
         <label className="relative block">
           <span className="sr-only">Choose step</span>
           <select

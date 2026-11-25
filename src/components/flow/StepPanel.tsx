@@ -35,7 +35,7 @@ export function StepPanel({
   return (
     <aside
       aria-label="Current step"
-      className="w-full shrink-0 rounded-[16px] border border-[var(--color-hairline)] bg-[var(--color-card)] p-4 min-[1100px]:w-[360px]"
+      className="w-full shrink-0 rounded-[16px] border border-[var(--color-hairline)] bg-[var(--color-card)] p-4 desktop:w-[360px]"
     >
       <div className="text-[12px] font-medium text-[var(--color-muted)] tabular-nums">
         Step {stepIndex + 1} of {totalSteps}

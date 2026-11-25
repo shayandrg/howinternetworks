@@ -1,11 +1,16 @@
+import fs from "node:fs";
+import path from "node:path";
 import { expect, test } from "@playwright/test";
 import { topics } from "../../src/content";
+
+const SCREENS_DIR = path.resolve("test-results", "screens");
 
 test.describe("topic pages", () => {
   for (const topic of topics) {
     test(`plays through ${topic.meta.slug} in both views and modes`, async ({
       page,
     }) => {
+      fs.mkdirSync(SCREENS_DIR, { recursive: true });
       const errors: string[] = [];
       page.on("console", (msg) => {
         if (msg.type() === "error") errors.push(msg.text());
@@ -25,6 +30,22 @@ test.describe("topic pages", () => {
       await expect(
         page.getByRole("heading", { level: 2, name: lastStep.title }),
       ).toBeVisible();
+
+      // Save light and dark screenshots at the last step for human review
+      await page.evaluate(() =>
+        document.documentElement.setAttribute("data-theme", "light"),
+      );
+      await page.waitForTimeout(150);
+      await page.screenshot({
+        path: path.join(SCREENS_DIR, `${topic.meta.slug}-light.png`),
+      });
+      await page.evaluate(() =>
+        document.documentElement.setAttribute("data-theme", "dark"),
+      );
+      await page.waitForTimeout(150);
+      await page.screenshot({
+        path: path.join(SCREENS_DIR, `${topic.meta.slug}-dark.png`),
+      });
 
       // Toggle play/pause with Space
       await page.keyboard.press("Space");
@@ -68,8 +89,7 @@ test.describe("topic pages", () => {
       await page.setViewportSize({ width: 375, height: 812 });
       await page.goto(`/learn/${topic.meta.slug}/`, { waitUntil: "load" });
       const overflow = await page.evaluate(
-        () =>
-          document.documentElement.scrollWidth > window.innerWidth,
+        () => document.documentElement.scrollWidth > window.innerWidth,
       );
       expect(overflow).toBe(false);
     });

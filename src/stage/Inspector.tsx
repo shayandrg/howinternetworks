@@ -34,7 +34,7 @@ function renderNestedLayers(
       className="mt-2 rounded-[10px] border border-[var(--color-hairline)] bg-[var(--color-card)] p-2.5 ps-3"
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[13px] font-medium text-[var(--color-primary)]">
+        <span className="shrink-0 text-[13px] font-medium text-[var(--color-primary)]">
           {isCollapsedEncrypted ? "Encrypted" : layer.name}
         </span>
         {isCollapsedEncrypted ? (

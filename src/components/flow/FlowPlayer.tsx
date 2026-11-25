@@ -215,7 +215,7 @@ export function FlowPlayer({ flow, relatedTopics }: FlowPlayerProps) {
       </div>
 
       {/* Main 3-column player */}
-      <div className="flex flex-col items-start gap-4 min-[1100px]:flex-row">
+      <div className="grid grid-cols-1 items-start gap-4 desktop:grid-cols-[240px_minmax(0,1fr)_360px]">
         <StepRail
           steps={flow.steps}
           stepIndex={stepIndex}
