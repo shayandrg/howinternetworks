@@ -16,6 +16,7 @@ import { ftpFlow } from "./flows/ftp";
 import { ethernetFlow } from "./flows/ethernet";
 import { wifiFlow } from "./flows/wifi";
 import { wpa3Flow } from "./flows/wpa3";
+import { ipv6Flow } from "./flows/ipv6";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -35,6 +36,7 @@ export const topics: Flow[] = [
   ethernetFlow,
   wifiFlow,
   wpa3Flow,
+  ipv6Flow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
