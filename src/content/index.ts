@@ -19,6 +19,7 @@ import { wpa3Flow } from "./flows/wpa3";
 import { ipv6Flow } from "./flows/ipv6";
 import { quicFlow } from "./flows/quic";
 import { dnsOverHttpsFlow } from "./flows/dns-over-https";
+import { dnssecFlow } from "./flows/dnssec";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -41,6 +42,7 @@ export const topics: Flow[] = [
   ipv6Flow,
   quicFlow,
   dnsOverHttpsFlow,
+  dnssecFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
