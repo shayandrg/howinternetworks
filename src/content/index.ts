@@ -7,6 +7,7 @@ import { ipFlow } from "./flows/ip";
 import { dhcpFlow } from "./flows/dhcp";
 import { icmpFlow } from "./flows/icmp";
 import { tlsFlow } from "./flows/tls";
+import { httpsFlow } from "./flows/https";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -17,6 +18,7 @@ export const topics: Flow[] = [
   dhcpFlow,
   icmpFlow,
   tlsFlow,
+  httpsFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
