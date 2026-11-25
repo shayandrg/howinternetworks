@@ -37,6 +37,7 @@ import { sipFlow } from "./flows/sip";
 import { rtspFlow } from "./flows/rtsp";
 import { rtmpFlow } from "./flows/rtmp";
 import { igmpFlow } from "./flows/igmp";
+import { modbusFlow } from "./flows/modbus";
 
 export const topics: Flow[] = [
   dnsFlow,
@@ -77,6 +78,7 @@ export const topics: Flow[] = [
   rtspFlow,
   rtmpFlow,
   igmpFlow,
+  modbusFlow,
 ];
 
 export function getTopic(slug: string): Flow | undefined {
