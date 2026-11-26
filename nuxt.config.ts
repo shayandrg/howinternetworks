@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: "en" },
       titleTemplate: "%s · How the Internet Works",
-      title: "How the Internet Works — Interactive Protocol & Packet Flows",
+      title: "How the Internet Works: Interactive Protocol & Packet Flows",
       link: [
         {
           rel: "icon",

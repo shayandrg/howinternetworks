@@ -6,7 +6,7 @@ import StartHere from "~/components/site/StartHere.vue";
 
 useHead({
   titleTemplate: "%s",
-  title: "How the Internet Works — Interactive Protocol & Packet Flows",
+  title: "How the Internet Works: Interactive Protocol & Packet Flows",
 });
 useSeoMeta({
   description:
